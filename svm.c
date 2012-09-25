@@ -35,7 +35,7 @@ static zend_object_handlers svm_model_object_handlers;
 #endif
 
 
-#define SVM_MAX_LINE_SIZE 4096
+#define SVM_MAX_LINE_SIZE 8192
 #define SVM_THROW(message, code) \
 		zend_throw_exception(php_svm_exception_sc_entry, message, (long)code TSRMLS_CC); \
 		return;
@@ -715,6 +715,7 @@ PHP_METHOD(svm, crossvalidate)
 	}
 
 	intern = (php_svm_object *)zend_object_store_get_object(getThis() TSRMLS_CC);
+	intern->param.nr_weight = 0;
 	
 	ALLOC_INIT_ZVAL(tempobj);
 	object_init_ex(tempobj, php_svm_model_sc_entry);
