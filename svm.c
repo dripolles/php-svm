@@ -715,7 +715,6 @@ PHP_METHOD(svm, crossvalidate)
 	}
 
 	intern = (php_svm_object *)zend_object_store_get_object(getThis() TSRMLS_CC);
-	intern->param.nr_weight = 0;
 	
 	ALLOC_INIT_ZVAL(tempobj);
 	object_init_ex(tempobj, php_svm_model_sc_entry);
@@ -1148,6 +1147,7 @@ static zend_object_value php_svm_object_new_ex(zend_class_entry *class_type, php
 	/* Allocate memory for the internal structure */
 	intern = (php_svm_object *) emalloc(sizeof(php_svm_object));
 	memset(&intern->zo, 0, sizeof(zend_object));
+	intern->param.nr_weight = 0;
 
 	if (ptr) {
 		*ptr = intern;
